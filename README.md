@@ -1,6 +1,6 @@
-# Pseudogameengine
+# PseudoGameEngine
 
-A libabry designed for simple programs that need a canvas to draw on.
+A library designed for simple programs that need a canvas to draw on.
 This engine also implements a sound engine which allows the playback 
 of simple sound effects and a background melody.
 
