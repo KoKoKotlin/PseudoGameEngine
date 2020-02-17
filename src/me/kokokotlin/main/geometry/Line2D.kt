@@ -45,5 +45,4 @@ class Line2D(p1: Vector2f, p2: Vector2f, val segment: Boolean = false) {
             else -> throw IllegalStateException("This state never should be reached! Report bug to Github!")
         }
     }
-
 }
