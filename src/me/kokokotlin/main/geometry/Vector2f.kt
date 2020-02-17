@@ -16,7 +16,7 @@ class Vector2f(val x: Double, val y: Double) {
         get() = hypot(x, y)
 
     val angleToXAxes: Double
-        get() = acos((Vector2f(1.0, 0.0) dot this) / (1 + this.mag))
+        get() = acos((Vector2f(1.0, 0.0) dot this) / (this.mag))
 
     infix fun dot(other: Vector2f) = x * other.x + y * other.y
     infix fun dist(other: Vector2f) = hypot(x - other.x, y - other.y)
