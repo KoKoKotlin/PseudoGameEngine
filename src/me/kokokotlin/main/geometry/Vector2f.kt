@@ -1,5 +1,6 @@
 package me.kokokotlin.main.geometry
 
+import kotlin.math.acos
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
@@ -10,6 +11,12 @@ class Vector2f(val x: Double, val y: Double) {
 
     val yI: Int
         get() = y.roundToInt()
+
+    val mag: Double
+        get() = hypot(x, y)
+
+    val angleToXAxes: Double
+        get() = acos((Vector2f(1.0, 0.0) dot this) / (1 + this.mag))
 
     infix fun dot(other: Vector2f) = x * other.x + y * other.y
     infix fun dist(other: Vector2f) = hypot(x - other.x, y - other.y)
