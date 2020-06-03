@@ -18,6 +18,12 @@ class Line2D(p1: Vector2f, p2: Vector2f, val segment: Boolean = false) {
         directionVector = p2 - p1
     }
 
+    fun getPointOnLine(t: Double): Optional<Vector2f> {
+        if(segment && t !in 0.0..1.0) return Optional.empty()
+
+        return Optional.of(supportVector + directionVector * t)
+    }
+
     infix fun intersect(other: Line2D): Optional<Vector2f> {
         val x1 = supportVector.x
         val x2 = directionVector.x
