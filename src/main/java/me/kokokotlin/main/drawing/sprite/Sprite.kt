@@ -68,10 +68,10 @@ class SpriteSheet(private val srcImage: BufferedImage, private val spriteRects: 
      *
      * Throws IndexOutOfBoundException
      */
-    fun getSprite(index: Int) {
+    fun getSprite(index: Int): Sprite {
         val rect = spriteRects[index].rI
 
-        srcImage.getSubimage(rect.x, rect.y, rect.width, rect.height)
+        return Sprite(srcImage.getSubimage(rect.x, rect.y, rect.width, rect.height))
     }
 
 }
