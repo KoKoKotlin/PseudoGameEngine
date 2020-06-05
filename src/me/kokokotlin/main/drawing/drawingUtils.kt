@@ -7,6 +7,11 @@ import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
 
+/*
+* Some utility function for drawing simple geometric shapes
+*/
+
+// lines
 fun drawLine(g: Graphics, line2D: Line2D, strokeSize: Float = 1f) {
     drawLine(g, line2D.supportVector, line2D.supportVector + line2D.directionVector, strokeSize)
 }
@@ -16,6 +21,8 @@ fun drawLine(g: Graphics, pos1: Vector2f, pos2: Vector2f, strokeSize: Float = 1f
 
     g.drawLine(pos1.xI, pos1.yI, pos2.xI, pos2.yI)
 }
+
+// circles
 
 fun drawCircle(g: Graphics, pos: Vector2f, size: Int) {
     drawCircle(g, pos, size, 0f)
