@@ -2,6 +2,12 @@ package me.kokokotlin.main.drawing.animation
 
 import me.kokokotlin.main.drawing.sprite.Sprite
 import java.lang.IllegalArgumentException
+import java.security.Key
+
+/**
+* Returns a animation consisting of a single sprite that never changes
+*/
+fun getSingleSpriteAnimation(sprite: Sprite) = Animation(listOf(sprite), listOf(Double.POSITIVE_INFINITY))
 
 /**
 * Class that represents an animation of a drawable object
