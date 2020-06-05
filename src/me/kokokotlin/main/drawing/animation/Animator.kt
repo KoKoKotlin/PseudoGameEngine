@@ -3,7 +3,7 @@ package me.kokokotlin.main.drawing.animation
 import me.kokokotlin.main.drawing.sprite.Sprite
 
 
-/*
+/**
 * Class that handles list of animations and applies them with the onUpdate callback
 */
 class Animator(val animations: List<Animation>, val onUpdate: (Sprite) -> Unit) {
@@ -24,7 +24,7 @@ class Animator(val animations: List<Animation>, val onUpdate: (Sprite) -> Unit) 
             currentTime = 0.0
         }
 
-    /*
+    /**
     * Update the the animation by increasing the animation timer by delta time and
     * calling the update callback with the next sprite of the animation
     */

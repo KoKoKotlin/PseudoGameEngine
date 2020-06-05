@@ -3,7 +3,7 @@ package me.kokokotlin.main.drawing.animation
 import me.kokokotlin.main.drawing.sprite.Sprite
 import java.lang.IllegalArgumentException
 
-/*
+/**
 * Class that represents an animation of a drawable object
 */
 class Animation {
@@ -29,7 +29,7 @@ class Animation {
         transformToTimeInterval()
     }
 
-    /*
+    /**
     * transforms the duration values of the keyframes into time points
     * by accumulating them
     */
@@ -42,7 +42,7 @@ class Animation {
         }
     }
 
-    /*
+    /**
     * returns the sprite that should be drawn in the current time interval
     */
     fun getSprite(currentTime: Double) = keyFrames.first { currentTime in it.timeInterval }.sprite

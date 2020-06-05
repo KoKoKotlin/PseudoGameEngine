@@ -8,7 +8,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 import kotlin.math.roundToLong
 
-/*
+/**
 * Class that handles drawing in the game and the window
 */
 class WindowHandler(val w0: Int, val h0: Int, title: String) : Canvas(), Runnable {
@@ -59,7 +59,7 @@ class WindowHandler(val w0: Int, val h0: Int, title: String) : Canvas(), Runnabl
         drawThread.start()
     }
 
-    /*
+    /**
     * Redraws the canvas to the buffer
     */
     private fun redraw() {
