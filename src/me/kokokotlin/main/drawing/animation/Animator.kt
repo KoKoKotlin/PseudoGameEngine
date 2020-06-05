@@ -1,5 +1,7 @@
 package me.kokokotlin.main.drawing.animation
 
+import me.kokokotlin.main.drawing.sprite.Sprite
+
 
 /*
 * Class that handles list of animations and applies them with the onUpdate callback

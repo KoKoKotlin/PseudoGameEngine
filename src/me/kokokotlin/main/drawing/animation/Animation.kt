@@ -1,5 +1,6 @@
 package me.kokokotlin.main.drawing.animation
 
+import me.kokokotlin.main.drawing.sprite.Sprite
 import java.lang.IllegalArgumentException
 
 /*
@@ -48,4 +49,4 @@ class Animation {
 }
 
 data class KeyFrame(val sprite: Sprite, val duration: Double,
-                            var timeInterval: ClosedFloatingPointRange<Double> = 0.0..0.0)
+                    var timeInterval: ClosedFloatingPointRange<Double> = 0.0..0.0)
