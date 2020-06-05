@@ -44,7 +44,7 @@ class Animation {
     /*
     * returns the sprite that should be drawn in the current time interval
     */
-    fun getSprite(currentTime: Double) = keyFrames.first { currentTime in it.timeInterval }
+    fun getSprite(currentTime: Double) = keyFrames.first { currentTime in it.timeInterval }.sprite
 }
 
 data class KeyFrame(val sprite: Sprite, val duration: Double,
