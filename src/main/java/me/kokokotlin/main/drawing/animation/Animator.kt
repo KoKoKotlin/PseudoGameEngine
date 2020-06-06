@@ -34,10 +34,11 @@ class Animator(val animations: List<Animation>, val onUpdate: (Sprite) -> Unit) 
     fun update(delta: Double) {
         // if the current animation is null the animator is stopped
         currentAnimation?.also {
+            currentTime += delta
+
             if(it.checkReset(currentTime))
                 currentTime = 0.0
 
-            currentTime += delta
 
             val nextSprite = it.getSprite(currentTime)
             if (prevSprite != nextSprite)
