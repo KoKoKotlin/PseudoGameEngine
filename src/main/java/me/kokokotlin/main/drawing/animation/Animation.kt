@@ -52,6 +52,11 @@ class Animation {
     * returns the sprite that should be drawn in the current time interval
     */
     fun getSprite(currentTime: Double) = keyFrames.first { currentTime in it.timeInterval }.sprite
+
+    /**
+     * Determines whether the animator should reset its current timer or not
+     */
+    fun checkReset(currentTime: Double) = keyFrames.none { currentTime in it.timeInterval }
 }
 
 data class KeyFrame(val sprite: Sprite, val duration: Double,

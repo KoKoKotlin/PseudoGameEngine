@@ -22,11 +22,11 @@ private val gson = Gson()
 /**
 * Classes that represent the structure of the json data that is loaded
 */
-data class AnimationData(val spriteSheet: String, val keyFrames: Array<KeyFrameData>)
-data class KeyFrameData(val spriteIndex: Int, val duration: Double)
+private data class AnimationData(val spriteSheet: String, val keyFrames: Array<KeyFrameData>)
+private data class KeyFrameData(val spriteIndex: Int, val duration: Double)
 
-data class SpriteSheetData(val path: String, val coordinates: Array<RectangleData>)
-data class RectangleData(val p1: Vector2f, val p2: Vector2f)
+private data class SpriteSheetData(val path: String, val coordinates: Array<RectangleData>)
+private data class RectangleData(val p1: Vector2f, val p2: Vector2f)
 
 
 /**
