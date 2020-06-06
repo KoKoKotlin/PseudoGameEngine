@@ -8,6 +8,7 @@ import me.kokokotlin.main.drawing.sprite.Sprite
 import me.kokokotlin.main.drawing.sprite.SpriteSheet
 import me.kokokotlin.main.geometry.Rectangle
 import me.kokokotlin.main.geometry.Vector2f
+import java.lang.NullPointerException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -34,7 +35,7 @@ data class RectangleData(val p1: Vector2f, val p2: Vector2f)
 * File format:
 * {
     *  spriteSheet: "path_to_sprite_sheet",
-    *  keyframes: [
+    *  keyFrames: [
     *     {
         *      spriteIndex: index
         *      duration: duration
@@ -51,24 +52,31 @@ fun loadAnimation(path: Path): Optional<Animation> {
             gson.fromJson(Files.newBufferedReader(path), AnimationData::class.java)
         } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
-        // load the sprite sheet linked in the json
-        val spriteSheet = loadSpriteSheet(Paths.get(animationData.spriteSheet))
+        try {
+            // load the sprite sheet linked in the json
+            val spriteSheet = loadSpriteSheet(Paths.get(animationData.spriteSheet))
 
-        // sprite sheet couldn't be loaded cancel loading of animation
-        if(spriteSheet.isEmpty) {
-            print("Sprite sheet of animation couldn't be loaded")
+            // sprite sheet couldn't be loaded cancel loading of animation
+            if (spriteSheet.isEmpty) {
+                print("Sprite sheet of animation couldn't be loaded")
+                return Optional.empty()
+            }
+
+
+            // extract the keyframes
+            val keyFrames = List(animationData.keyFrames.size) {
+                // extract the keyframe information
+                val keyFrameData = animationData.keyFrames[it]
+
+                KeyFrame(spriteSheet.get().getSprite(keyFrameData.spriteIndex), keyFrameData.duration)
+            }
+
+            return Optional.of(Animation(keyFrames))
+        } catch (e: NullPointerException) {
+            // if a null pointer exception occurs a json key couldn't be read
+            println("Syntax error in json file: $path")
             return Optional.empty()
         }
-
-        // extract the keyframes
-        val keyFrames = List(animationData.keyFrames.size) {
-            // extract the keyframe information
-            val keyFrameData = animationData.keyFrames[it]
-
-            KeyFrame(spriteSheet.get().getSprite(keyFrameData.spriteIndex), keyFrameData.duration)
-        }
-
-        return Optional.of(Animation(keyFrames))
     } else {
         // print error when path invalid
         println("Path $path does not exist or is directory!")
@@ -98,15 +106,21 @@ fun loadAnimWithSpritesheet(path: Path, spriteSheet: SpriteSheet): Optional<Anim
             gson.fromJson(Files.newBufferedReader(path), AnimationData::class.java)
         } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
-        // extract the keyframes
-        val keyFrames = List(animationData.keyFrames.size) {
-            // extract the keyframe information
-            val keyFrameData = animationData.keyFrames[it]
+        try {
+            // extract the keyframes
+            val keyFrames = List(animationData.keyFrames.size) {
+                // extract the keyframe information
+                val keyFrameData = animationData.keyFrames[it]
 
-            KeyFrame(spriteSheet.getSprite(keyFrameData.spriteIndex), keyFrameData.duration)
+                KeyFrame(spriteSheet.getSprite(keyFrameData.spriteIndex), keyFrameData.duration)
+            }
+
+            return Optional.of(Animation(keyFrames))
+        } catch (e: NullPointerException) {
+            // if a null pointer exception occurs a json key couldn't be read
+            println("Syntax error in json file: $path")
+            return Optional.empty()
         }
-
-        return Optional.of(Animation(keyFrames))
     } else {
         // print error when path invalid
         println("Path $path does not exist or is directory!")
@@ -135,17 +149,23 @@ fun loadSpriteSheet(path: Path): Optional<SpriteSheet> {
             gson.fromJson<SpriteSheetData>(Files.newBufferedReader(path), SpriteSheetData::class.java)
         } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
-        // load the buffered image of the sprite sheet
-        val image = ImageIO.read(Files.newInputStream(Paths.get(spriteSheetData.path)))
+        try {
+            // load the buffered image of the sprite sheet
+            val image = ImageIO.read(Files.newInputStream(Paths.get(spriteSheetData.path)))
 
-        // extract rectangles
-        val rectangles = List(spriteSheetData.coordinates.size) {
-            val coords = spriteSheetData.coordinates[it]
+            // extract rectangles
+            val rectangles = List(spriteSheetData.coordinates.size) {
+                val coords = spriteSheetData.coordinates[it]
 
-            Rectangle(coords.p1, coords.p2)
+                Rectangle(coords.p1, coords.p2)
+            }
+
+            return Optional.of(SpriteSheet(image, rectangles))
+        } catch (e: NullPointerException) {
+            // if a null pointer exception occurs a json key couldn't be read
+            println("Syntax error in json file: $path")
+            return Optional.empty()
         }
-
-        return Optional.of(SpriteSheet(image, rectangles))
     } else {
         // print error when path invalid
         println("Path $path does not exist or is directory!")

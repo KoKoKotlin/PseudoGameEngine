@@ -18,7 +18,7 @@ class Rectangle {
         get() = p2.y
 
     val rI: java.awt.Rectangle      // rectangle with integer coordinates
-        get() = java.awt.Rectangle(p1.xI, p1.yI, p2.xI, p2.yI)
+        get() = java.awt.Rectangle(p1.xI, p1.yI, (p2 - p1).xI, (p2 - p1).yI)
 
     constructor(p1: Vector2f, p2: Vector2f) {
         this.p1 = p1
