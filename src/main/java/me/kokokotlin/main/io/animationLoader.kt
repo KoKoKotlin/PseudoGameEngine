@@ -21,11 +21,11 @@ private val gson = Gson()
 /**
 * Classes that represent the structure of the json data that is loaded
 */
-private data class AnimationData(val spriteSheet: String, val keyFrames: Array<KeyFrameData>)
-private data class KeyFrameData(val spriteIndex: Int, val duration: Double)
+data class AnimationData(val spriteSheet: String, val keyFrames: Array<KeyFrameData>)
+data class KeyFrameData(val spriteIndex: Int, val duration: Double)
 
-private data class SpriteSheetData(val path: String, val coordinates: Array<RectangleData>)
-private data class RectangleData(val p1: Vector2f, val p2: Vector2f)
+data class SpriteSheetData(val path: String, val coordinates: Array<RectangleData>)
+data class RectangleData(val p1: Vector2f, val p2: Vector2f)
 
 
 /**
@@ -49,7 +49,7 @@ fun loadAnimation(path: Path): Optional<Animation> {
         // load the json
         val animationData = try {
             gson.fromJson(Files.newBufferedReader(path), AnimationData::class.java)
-        } catch (e: JsonSyntaxException) { e.printStackTrace(); return Optional.empty() }
+        } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
         // load the sprite sheet linked in the json
         val spriteSheet = loadSpriteSheet(Paths.get(animationData.spriteSheet))
@@ -96,7 +96,7 @@ fun loadAnimWithSpritesheet(path: Path, spriteSheet: SpriteSheet): Optional<Anim
         // load the json
         val animationData = try {
             gson.fromJson(Files.newBufferedReader(path), AnimationData::class.java)
-        } catch (e: JsonSyntaxException) { e.printStackTrace(); return Optional.empty() }
+        } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
         // extract the keyframes
         val keyFrames = List(animationData.keyFrames.size) {
@@ -132,8 +132,8 @@ fun loadSpriteSheet(path: Path): Optional<SpriteSheet> {
     if(isPathValid(path)) {
         // load the json
         val spriteSheetData = try {
-            gson.fromJson(Files.newBufferedReader(path), SpriteSheetData::class.java)
-        } catch (e: JsonSyntaxException) { e.printStackTrace(); return Optional.empty() }
+            gson.fromJson<SpriteSheetData>(Files.newBufferedReader(path), SpriteSheetData::class.java)
+        } catch (e: JsonSyntaxException) { println(e.message); return Optional.empty() }
 
         // load the buffered image of the sprite sheet
         val image = ImageIO.read(Files.newInputStream(Paths.get(spriteSheetData.path)))

@@ -100,8 +100,8 @@ class WindowHandler(val w0: Int, val h0: Int, title: String) : Canvas(), Runnabl
             redraw()
 
             val sleepTime = ((lastLoopTime - System.nanoTime() + optimalFrameTime) / 1000000).roundToLong()
-            Thread.sleep(when(sleepTime) {
-                0L -> 1L
+            Thread.sleep(when {
+                sleepTime <= 0L -> 1L
                 else -> sleepTime
             })
         }
