@@ -55,7 +55,7 @@ fun loadAnimation(path: Path): Optional<Animation> {
         val spriteSheet = loadSpriteSheet(Paths.get(animationData.spriteSheet))
 
         // sprite sheet couldn't be loaded cancel loading of animation
-        if(spriteSheet.isEmpty) {
+        if(spriteSheet.isEmpty()) {
             print("Sprite sheet of animation couldn't be loaded")
             return Optional.empty()
         }
